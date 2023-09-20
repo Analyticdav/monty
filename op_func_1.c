@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-static int op_arg = 0;
+static int op_arg;
 
 int chk_op(char *op, stack_t **stack, int l_nr)
 {
@@ -16,7 +16,7 @@ int chk_op(char *op, stack_t **stack, int l_nr)
 
 	while (op[i] != '\0')
 	{
-		if (op[i] > 47 && op[i] < 58 )
+		if (op[i] > 47 && op[i] < 58)
 			break;
 		i++;
 	}

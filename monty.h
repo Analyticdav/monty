@@ -2,6 +2,7 @@
 #define MONTY_H_
 
 #include <stddef.h>
+#include <stdio.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -50,6 +51,13 @@ void swap(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 int get_args(char *arg);
+void error_handler(
+	int ERRNO,
+	stack_t *stack,
+	FILE *f_stream,
+	const char *file_name,
+	unsigned int *line_no,
+	char *op_code);
 
 /* stack */
 size_t print_stack(const stack_t *h);
