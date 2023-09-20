@@ -8,8 +8,7 @@ static int ERRORNO = 1;
 int read_file(const char *filepath)
 {
 	FILE *f_ptr;
-	char c;
-	char *cmd = NULL;
+	char c, *cmd = NULL;
 	unsigned int l_nr = 1;
 	stack_t *head;
 
@@ -18,6 +17,7 @@ int read_file(const char *filepath)
 	if (f_ptr == NULL)
 	{
 		error_handler(1, NULL, NULL, filepath, NULL, NULL);
+		exit(EXIT_FAILURE);
 	}
 	do {
 		c = fgetc(f_ptr);
@@ -69,7 +69,7 @@ void add_c(char **s, char c)
 
 void handle_op(char *op, unsigned int l_nr, stack_t **stack)
 {
-	int res = 0;
+	int res;
 
 	res = chk_op(op, stack, l_nr);
 	if (res < 0)
@@ -101,12 +101,8 @@ void error_handler(
 	char *op_code
 )
 {
-	(void) ERRNO,
-	(void) stack,
-	(void) f_stream,
-	(void) file_name,
-	(void) line_no,
-	(void) op_code;
+	(void) stack, (void) f_stream, (void) file_name,
+	(void) line_no, (void) op_code;
 
 	switch (ERRNO)
 	{
@@ -114,7 +110,7 @@ void error_handler(
 			fprintf(stderr, "Error: can't open file %s\n", file_name);
 			break;
 		case 2:
-			fprintf(stderr, "L:%i unknown instruction %s\n", *line_no, op_code);
+			fprintf(stderr, "L%i: unknown instruction %s\n", *line_no, op_code);
 			break;
 		case 3:
 			fprintf(stderr, "USAGE: monty file\n");

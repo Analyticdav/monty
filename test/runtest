@@ -1,2 +1,4 @@
 #!/bin/bash
 gcc -Wall -Werror -Wextra -pedantic -std=c89 ../*.c -o monty
+./monty 000
+valgrind ./monty 000.m
