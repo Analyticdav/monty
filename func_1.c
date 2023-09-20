@@ -9,7 +9,7 @@ int read_file(const char *filepath)
 {
 	FILE *f_ptr;
 	char c, *cmd = NULL;
-	unsigned int l_nr = 1;
+	unsigned int l_nr = 1, cmd_flag = 0;
 	stack_t *head;
 
 	head = NULL;
@@ -21,13 +21,25 @@ int read_file(const char *filepath)
 	}
 	do {
 		c = fgetc(f_ptr);
-		if (c != ' ' && c != '\n')
-			add_c(&cmd, c);
+		if (c != '\n')
+		{
+			if (c == ' ' && cmd_flag)
+			{
+				add_c(&cmd, ' ');
+				cmd_flag = 0;
+			}
+			if (c != ' ')
+			{
+				add_c(&cmd, c);
+				cmd_flag = 1;
+			}
+		}
 		if (c == '\n' && cmd != NULL)
 		{
 			handle_op(cmd, l_nr, &head);
 			free(cmd);
 			cmd = NULL;
+			cmd_flag = 0;
 			l_nr++;
 		}
 	} while (c != EOF && ERRORNO != -1);
@@ -81,12 +93,16 @@ void handle_op(char *op, unsigned int l_nr, stack_t **stack)
 int get_args(char *arg)
 {
 	int arg_i = 0;
+	char *token;
 
-	if (*arg == '\0')
+	token = strtok(arg, " ");
+	token = strtok(NULL, " ");
+
+	if (token == NULL)
 		return (-1);
-	if (*arg == '0')
+	if (*token == '0')
 		return (0);
-	arg_i = atoi(arg);
+	arg_i = atoi(token);
 	if (arg_i == 0)
 		return (-2);
 	return (arg_i);

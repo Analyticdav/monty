@@ -16,7 +16,7 @@ int chk_op(char *op, stack_t **stack, int l_nr)
 
 	while (op[i] != '\0')
 	{
-		if (op[i] > 47 && op[i] < 58)
+		if (op[i] == ' ')
 			break;
 		i++;
 	}
@@ -30,7 +30,7 @@ int chk_op(char *op, stack_t **stack, int l_nr)
 		}
 		if (cnt == i)
 		{
-			arg = get_args(op + i);
+			arg = get_args(op);
 			if (arg >= 0)
 				op_arg = arg;
 			else if (strcmp(allowed_ops[j].opcode, "push") == 0 && arg < 0)
@@ -50,17 +50,17 @@ void push(stack_t **stack, unsigned int line_number)
 void pall(stack_t **stack, unsigned int line_number)
 {
 	(void) line_number;
+	if ((*stack) == NULL)
+		return;
 	print_stack(*stack);
 }
 void pop(stack_t **stack, unsigned int line_number)
 {
 	(void) stack;
 	(void) line_number;
-	return;
 }
 void swap(stack_t **stack, unsigned int line_number)
 {
 	(void) stack;
 	(void) line_number;
-	return;
 }

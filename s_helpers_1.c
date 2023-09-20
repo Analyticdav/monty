@@ -39,7 +39,10 @@ stack_t *add_snodeint(stack_t **head, const int n)
 
 	temp = malloc(sizeof(stack_t));
 	if (temp == NULL)
+	{
+		error_handler(4, NULL, NULL, NULL, NULL, NULL);
 		return (NULL);
+	}
 	temp->next = *head;
 	temp->n = n;
 	temp->prev = NULL;
@@ -118,7 +121,10 @@ stack_t *insert_snodeint_at_index(stack_t **h, unsigned int idx, int n)
 
 	node = malloc(sizeof(stack_t));
 	if (node == NULL)
+	{
+		error_handler(4, NULL, NULL, NULL, NULL, NULL);
 		return (NULL);
+	}
 
 	node->next = NULL;
 	node->prev = NULL;
