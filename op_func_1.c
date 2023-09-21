@@ -1,5 +1,6 @@
 #include "monty.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 static int op_arg;
@@ -68,12 +69,26 @@ int chk_op(char *op, stack_t **stack, int l_nr)
  */
 void push(stack_t **stack, unsigned int line_number)
 {
+	stack_t *temp;
+
 	(void) line_number;
-	add_snodeint_end(stack, op_arg);
+	temp = malloc(sizeof(stack_t));
+	if (temp == NULL)
+	{
+		error_handler(4, NULL, NULL, NULL, NULL, NULL);
+		return;
+	}
+	temp->next = *stack;
+	temp->n = op_arg;
+	temp->prev = NULL;
+
+	if (*stack != NULL)
+		(*stack)->prev = temp;
+
+	*stack = temp;
 }
 /**
  * pall - Print all elements of the stack.
- *
  * This function prints all elements of the stack, starting from the top.
  * If the stack is empty, it does nothing.
  *
@@ -82,10 +97,18 @@ void push(stack_t **stack, unsigned int line_number)
  */
 void pall(stack_t **stack, unsigned int line_number)
 {
+	stack_t *h = (*stack);
+
 	(void) line_number;
-	if ((*stack) == NULL)
+
+	if (stack_len(*stack) == 0)
 		return;
-	print_stack(*stack);
+
+	while (h != NULL)
+	{
+		printf("%i\n", h->n);
+		h = h->next;
+	}
 }
 /**
  * pop - Remove the top element of the stack.
@@ -98,8 +121,23 @@ void pall(stack_t **stack, unsigned int line_number)
  */
 void pop(stack_t **stack, unsigned int line_number)
 {
-	(void) stack;
-	(void) line_number;
+	int len_stack = 0;
+	stack_t *temp;
+
+	len_stack = stack_len(*stack);
+
+	if (len_stack == 0)
+	{
+		error_handler(6, *stack, NULL, NULL, &line_number, "pop");
+		return;
+	}
+
+	temp = (*stack);
+	*stack = temp->next;
+	temp->next = NULL;
+	if (temp) /*This check is just to remove the unused variable error*/
+	{}
+	free(temp);
 }
 
 /**
@@ -113,6 +151,27 @@ void pop(stack_t **stack, unsigned int line_number)
  */
 void swap(stack_t **stack, unsigned int line_number)
 {
-	(void) stack;
-	(void) line_number;
+	int len_stack = 0;
+	stack_t *temp, *nextP;
+
+	len_stack = stack_len(*stack);
+
+	if (len_stack < 2)
+	{
+		error_handler(7, *stack, NULL, NULL, &line_number, "swap");
+		return;
+	}
+
+	temp = (*stack);
+	nextP = temp->next;
+
+	temp->next = nextP->next;
+	temp->prev = nextP;
+	nextP->next = temp;
+	nextP->prev = NULL;
+
+	if (temp->next != NULL)
+		temp->next->prev = temp;
+
+	(*stack) = nextP;
 }

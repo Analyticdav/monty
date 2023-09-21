@@ -1,4 +1,6 @@
 #include "monty.h"
+#include <stdio.h>
+#include <stdlib.h>
 /**
  * sub - Subtracts the top two elements of the stack.
  *
@@ -36,8 +38,24 @@ void nop(stack_t **stack, unsigned int line_number)
  */
 void add(stack_t **stack, unsigned int line_number)
 {
-	(void) stack;
-	(void) line_number;
+	int len_stack = 0, result;
+	stack_t *temp;
+
+	len_stack = stack_len(*stack);
+
+	if (len_stack < 2)
+	{
+		error_handler(7, *stack, NULL, NULL, &line_number, "add");
+		return;
+	}
+	result = (*stack)->n + (*stack)->next->n;
+
+	temp = *stack;
+	*stack = temp->next;
+	(*stack)->prev = NULL;
+	(*stack)->n = result;
+
+	free(temp);
 }
 /**
  * pint - Prints the top element of the stack.
@@ -49,6 +67,14 @@ void add(stack_t **stack, unsigned int line_number)
  */
 void pint(stack_t **stack, unsigned int line_number)
 {
-	(void) stack;
-	(void) line_number;
+	int len_stack = 0;
+
+	len_stack = stack_len(*stack);
+
+	if (len_stack == 0)
+	{
+		error_handler(6, *stack, NULL, NULL, &line_number, "pint");
+		return;
+	}
+	printf("%i\n", (*stack)->n);
 }
