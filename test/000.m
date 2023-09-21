@@ -1,3 +1,6 @@
-push 1
+push -1
 pall
-push a
+sit
+push 0000000000A00000000000
+pall
+push

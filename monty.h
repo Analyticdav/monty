@@ -34,13 +34,6 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-typedef struct op_s
-{
-	char *opcode;
-	int arg;
-} op_t;
-
-
 int read_file(const char *filepath);
 void add_c(char **, char);
 void handle_op(char *op, unsigned int l_nr, stack_t **stack);
@@ -50,7 +43,9 @@ void push(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
-int get_args(char *arg);
+char *get_arg(char *opcode);
+int convert_arg(char *arg);
+void clean_up(FILE *file_p, char *cmd, stack_t *stack);
 void error_handler(
 	int ERRNO,
 	stack_t *stack,
