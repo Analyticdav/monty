@@ -21,8 +21,9 @@ int read_file(const char *filepath)
 	FILE *f_ptr;
 	char c, *cmd = NULL;
 	unsigned int l_nr = 1, cmd_flag = 0;
-	stack_t *head = NULL;
+	stack_t *head;
 
+	head = NULL;
 	f_ptr = fopen(filepath, "rb");
 	if (f_ptr == NULL)
 	{
@@ -46,8 +47,7 @@ int read_file(const char *filepath)
 		}
 		if (c == '\n' && cmd != NULL)
 		{
-			if (!(*cmd == '#'))
-				handle_op(cmd, l_nr, &head);
+			handle_op(cmd, l_nr, &head);
 			free(cmd);
 			cmd = NULL;
 			cmd_flag = 0;
@@ -184,7 +184,7 @@ void error_handler(
 	switch (ERRNO)
 	{
 		case 1:
-			fprintf(stderr, "Error: Can't open file %s\n", file_name);
+			fprintf(stderr, "Error: can't open file %s\n", file_name);
 			break;
 		case 2:
 			fprintf(stderr, "L%i: unknown instruction %s\n", *line_no, op_code);
@@ -205,7 +205,7 @@ void error_handler(
 			fprintf(stderr, "L%i: can't %s, stack too short\n", *line_no, op_code);
 			break;
 		case 8:
-			fprintf(stderr, "L%i: can't %s, value out of range\n", *line_no, op_code);
+			fprintf(stderr, "L%i: can't %s, stack empty\n", *line_no, op_code);
 			break;
 		case 9:
 			fprintf(stderr, "L%i: division by zero\n", *line_no);
