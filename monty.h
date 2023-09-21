@@ -69,4 +69,7 @@ stack_t *get_snodeint_at_index(stack_t *head, unsigned int index);
 int sum_stack(stack_t *head);
 stack_t *insert_snodeint_at_index(stack_t **h, unsigned int idx, int n);
 int delete_snodeint_at_index(stack_t **head, unsigned int index);
+void pop();
+void push(int value);
+void pint();
 #endif /*MONTY_H_*/
