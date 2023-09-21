@@ -210,8 +210,8 @@ void error_handler(
 		case 9:
 			fprintf(stderr, "L%i: division by zero\n", *line_no);
 			break;
-		default:
-			fprintf(stderr, "An error occured\n");
+		case 10:
+			fprintf(stderr, "L%i: can't %s an empty stack\n", *line_no, op_code);
 			break;
 	}
 	ERRORNO = -1;

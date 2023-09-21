@@ -126,18 +126,22 @@ void pop(stack_t **stack, unsigned int line_number)
 
 	len_stack = stack_len(*stack);
 
-	if (len_stack == 0)
+	if (len_stack == 0 || (*stack) == NULL)
 	{
-		error_handler(6, *stack, NULL, NULL, &line_number, "pop");
+		error_handler(10, *stack, NULL, NULL, &line_number, "pop");
 		return;
 	}
 
-	temp = (*stack);
-	*stack = temp->next;
-	temp->next = NULL;
-	if (temp) /*This check is just to remove the unused variable error*/
-	{}
-	free(temp);
+	if ((*stack)->next != NULL)
+	{
+		temp = (*stack);
+		*stack = temp->next;
+		free(temp);
+	} else
+	{
+		free((*stack));
+		*stack = NULL;
+	}
 }
 
 /**
