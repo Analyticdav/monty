@@ -1,4 +1,4 @@
-# Monty Suite
+# Monty
 
 ## An Interpreter for monty rytecodes built with the C programming language
 
