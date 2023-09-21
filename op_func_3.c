@@ -59,7 +59,7 @@ void mod(stack_t **stack, unsigned int line_number)
 		error_handler(9, NULL, NULL, NULL, &line_number, "mod");
 		return;
 	}
-	result = (*stack)->n / (*stack)->next->n;
+	result = (*stack)->n % (*stack)->next->n;
 
 	temp = *stack;
 	*stack = temp->next;
