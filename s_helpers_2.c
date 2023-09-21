@@ -60,7 +60,10 @@ stack_t *add_snodeint_end(stack_t **head, const int n)
 
 	temp = malloc(sizeof(stack_t));
 	if (temp == NULL)
+	{
+		error_handler(4, NULL, NULL, NULL, NULL, NULL);
 		return (NULL);
+	}
 
 	temp->next = NULL;
 	temp->n = n;

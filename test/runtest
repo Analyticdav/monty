@@ -1,2 +1,8 @@
 #!/bin/bash
 gcc -Wall -Werror -Wextra -pedantic -std=c89 ../*.c -o monty
+echo "======================REGULAR CHECK======================="
+./monty 000.m
+echo "============================================================"
+echo "======================VALGRIND CHECK======================="
+valgrind --leak-check=full ./monty 000.m
+echo "============================================================"
