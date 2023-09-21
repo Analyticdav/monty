@@ -26,8 +26,8 @@ int chk_op(char *op, stack_t **stack, int l_nr)
 	int i = 0, j, cnt = 0;
 	char *arg_chk;
 	instruction_t allowed_ops[] = {
-		{"push", push},
-		{"pall", pall},
+	{"push", push}, {"pall", pall}, {"nop", nop}, {"pint", pint},
+	{"pop", pop}, {"swap", swap}, {"add", add}, {"sub", sub},
 		{NULL, NULL}
 	};
 
