@@ -77,7 +77,10 @@ void add_c(char **s, char c)
 	{
 		*s = malloc(sizeof(char) * 2);
 		if ((*s) == NULL)
+		{
 			error_handler(4, NULL, NULL, NULL, NULL, NULL);
+			return;
+		}
 		(*s)[0] = c;
 		(*s)[1] = '\0';
 		return;
@@ -87,7 +90,10 @@ void add_c(char **s, char c)
 
 	(*s) = malloc(sizeof(char) * (len_s + 2));
 	if ((*s) == NULL)
+	{
 		error_handler(4, NULL, NULL, NULL, NULL, NULL);
+		return;
+	}
 	strcpy(*s, tmp_p);
 	(*s)[len_s] = c;
 	(*s)[len_s + 1] = '\0';
