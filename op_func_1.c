@@ -134,9 +134,9 @@ void pop(stack_t **stack, unsigned int line_number)
 
 	temp = (*stack);
 	*stack = temp->next;
+	(*stack)->prev = NULL;
+
 	temp->next = NULL;
-	if (temp) /*This check is just to remove the unused variable error*/
-	{}
 	free(temp);
 }
 
